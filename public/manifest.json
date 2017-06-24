@@ -1,0 +1,13 @@
+{
+    "name": "Stampro",
+    "short_name": "Stampro",
+    "icon": [
+        {
+            "src": "assets/icons/favison.icon",
+            "size": "32x32",
+            "type": "image/\icon"
+        }
+    ],
+    "display": "standalone",
+    "start_url": "./?utm_source=web_app_manifest"
+}
