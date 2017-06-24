@@ -1,26 +1,26 @@
 <md-toolbar color="primary">
   <span>Stampro</span>
   <span class="spacer"></span>
-  <button md-icon-button [mdMenuTriggerFor]="menu">
-    <md-icon>more_vert</md-icon>
+  <button md-button class="md-primary auth-button" (click)="authAction()">
+    <md-icon>fingerprint</md-icon>
+    <span>{{ authmenu }}</span>
   </button>
-  <md-menu #menu="mdMenu">
-    <button md-menu-item (click)="openDialog()">
-      <md-icon>fingerprint</md-icon>
-      <span>Login/Signup</span>
-    </button>
-    <button md-menu-item>
-      <md-icon>bookmark</md-icon>
-      <span>Bookmark</span>
-    </button>
-  </md-menu>
 </md-toolbar>
 
-    <div class="card-viewer" *ngFor="let item of items | async">
-      <md-card>
-        {{ item.$value }}
-      </md-card>
-    </div>
+<md-tab-group>
+  <md-tab label="Shop List">
+  <div class="card-viewer" *ngFor="let item of items | async">
+    <md-card>
+      {{ item.$value }}
+    </md-card>
+  </div>
+  </md-tab>
+  <md-tab label="Collection">
+    <md-grid-list cols="4" rowHeight="2:1">
+      <md-grid-tile *ngFor="let num of [0, 1, 3, 4, 5, 6, 7, 8]">{{ num }}</md-grid-tile>
+    </md-grid-list>
+  </md-tab>
+</md-tab-group>
 
 <!--<div class="card-viewer">
 <md-card>

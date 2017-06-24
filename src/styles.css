@@ -14,3 +14,15 @@
 .card_auth {
     padding-bottom: 10px;
 }
+
+.auth-button {
+    width: 100px;
+}
+
+md-grid-tile {
+  background: lightblue;
+}
+
+md-grid-list {
+    margin: 10px;
+}

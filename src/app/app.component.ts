@@ -15,13 +15,37 @@ export class AppComponent {
   title = 'Stampro';
   user: Observable<firebase.User>;
   items: FirebaseListObservable<any[]>;
+  authmenu: string;
   //result: string;
   constructor(public db: AngularFireDatabase, public af: AngularFireAuth, public dlg: MdDialog) {
-    this.items = db.list('/items');
     this.user = af.authState;
+    // load items from firebase RTDB
+    this.items = db.list('/items');
+    this.user.subscribe(auth => {
+      if(auth) {
+        console.log("user", auth.uid);
+        this.authmenu = "Logout";
+
+      }
+      else {
+        console.log("user not login");
+        this.authmenu = "Login"
+      }
+    });
   }
 
-  openDialog() {
+  authAction() {
+    this.user.subscribe(auth => {
+      if(auth) {
+        this.signOut();
+      }
+      else {
+        this.signIn();
+      }
+    });
+  }
+
+  signIn() {
     let dlgRef = this.dlg.open(AppDialog);
     dlgRef.afterClosed().subscribe(result => {
       console.log(`dialog result: ${result}`);
@@ -42,7 +66,14 @@ export class AppComponent {
             break;
       }
       this.af.auth.signInWithRedirect(auth);
+      this.user = this.af.authState;
     });
+  }
+
+  signOut() {
+    this.af.auth.signOut().then(
+      x => location.reload()
+    );
   }
 }
 
