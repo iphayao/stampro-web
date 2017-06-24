@@ -1,0 +1,35 @@
+<h2 md-dialog-title>Login/Signin Selection</h2>
+<md-dialog-content>
+    <!--<div class="card_auth">
+        <md-card>Continue with Twitter</md-card>
+    </div>
+    <div class="card_auth">
+        <md-card>Continue with Facebook</md-card>
+    </div>
+    <div class="card_auth">
+        <md-card>Continue with Google</md-card>
+    </div>-->
+    
+</md-dialog-content>
+<!--<md-dialog-actions>
+  <button md-button md-dialog-close>No</button>-->
+  <!-- Can optionally provide a result for the closing dialog. -->
+  <!--<button md-button [md-dialog-close]="true">Yes</button>
+</md-dialog-actions>-->
+<md-dialog-actions>
+    <button md-menu-item routerLink="." [md-dialog-close]="true">
+        <md-icon>face</md-icon>
+        <span>Facebook</span>
+    </button>
+    <button md-menu-item routerLink="." [md-dialog-close]="true">
+        <md-icon>face</md-icon>
+        <span>Google</span>
+    </button>
+    <button md-menu-item routerLink="." [md-dialog-close]="true">
+        <md-icon>face</md-icon>
+        <span>Twitter</span>
+    </button>
+</md-dialog-actions>
+<md-dialog-content>
+    <br>
+</md-dialog-content>

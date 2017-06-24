@@ -5,9 +5,9 @@
     <md-icon>more_vert</md-icon>
   </button>
   <md-menu #menu="mdMenu">
-    <button md-menu-item>
+    <button md-menu-item (click)="openDialog()">
       <md-icon>fingerprint</md-icon>
-      <span>Login</span>
+      <span>Login/Signup</span>
     </button>
     <button md-menu-item>
       <md-icon>bookmark</md-icon>
@@ -15,4 +15,21 @@
     </button>
   </md-menu>
 </md-toolbar>
+
+    <div class="card-viewer" *ngFor="let item of items | async">
+      <md-card>
+        {{ item.$value }}
+      </md-card>
+    </div>
+
+<!--<div class="card-viewer">
+<md-card>
+  Hello Card
+</md-card>
+</div>
+<div class="card-viewer">
+<md-card>
+  Hello Card
+</md-card>
+</div>-->
 

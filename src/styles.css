@@ -6,3 +6,11 @@
     -ms-flex: 1 1 auto;
     flex: 1 1 auto;
 }
+
+.card-viewer {
+    padding: 10px 20px 10px 20px;
+}
+
+.card_auth {
+    padding-bottom: 10px;
+}
