@@ -17,7 +17,10 @@ export class ListComponent implements OnInit {
   items;
   constructor(db: FirebasedbService, auth: AuthService, public router: Router) {
     console.log("this is : ", auth.uid);
-    this.items = db.QueryStampCollection(auth.uid);
+    auth.user.subscribe(u => {
+      if(u)
+        this.items = db.query_stamps_collection(u.uid);
+    })
   }
 
   ngOnInit() {

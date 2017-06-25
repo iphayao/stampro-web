@@ -25,7 +25,7 @@ export class AppComponent {
       }
       else {
         console.log("user not login");
-        this.authmenu = "Login"
+        this.authmenu = "Login";
       }
     });
   }

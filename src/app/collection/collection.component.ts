@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MdDialog, MdDialogRef } from '@angular/material';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UidService } from '../providers/uid.service';
 import { FirebasedbService } from '../providers/firebasedb.service';
 import { AuthService } from '../providers/auth.service';
@@ -13,11 +13,15 @@ import { AuthService } from '../providers/auth.service';
 export class CollectionComponent implements OnInit {
   items;
   collection_id;
-  constructor(route: ActivatedRoute, public db: FirebasedbService, public fa: AuthService, public uuid: UidService, public dlg: MdDialog) {
+  constructor(route: ActivatedRoute, public db: FirebasedbService, public auth: AuthService, public uuid: UidService, public dlg: MdDialog) {
     console.log(route.snapshot.params['id']);
     console.log(uuid.generate());
     this.collection_id = route.snapshot.params['id'];
-    this.items = db.query_stamps(fa.uid, this.collection_id);
+    auth.user.subscribe(u => {
+      if(u) {
+        this.items = db.query_stamps(u.uid, this.collection_id);
+      }
+    })
   }
 
   ngOnInit() {
@@ -39,7 +43,12 @@ export class CollectionComponent implements OnInit {
     var match_obj = x.filter(i => i.$value == "null");
     if(match_obj.length > 0) {
       var stamp_key = match_obj[0].$key;
-      this.db.update_stamps(this.fa.uid, this.collection_id, stamp_key, stamp_id);
+      this.auth.user.subscribe(u => {
+        if(u) {
+          this.db.update_stamps(u.uid, this.collection_id, stamp_key, stamp_id);
+        }
+      });
+      
     }
     else {
       this.dlg.open(CollectionDialog);
@@ -68,13 +77,20 @@ export class CollectionDialog {
 })
 
 export class AddStampCollection {
-  constructor(public db: FirebasedbService, public fa: AuthService, public uuid: UidService) {
+  constructor(public db: FirebasedbService, public auth: AuthService, public uuid: UidService, public router: Router) {
 
   }
 
-  public add_collection() {
+  public add_collection(pro_name:string) {
     console.log("add collection");
     var collection_id = this.uuid.generate();
-    this.db.add_collection(this.fa.uid, collection_id, "test promotion");
+    this.auth.user.subscribe(u => {
+      if(u) {
+        this.db.add_collection(u.uid, collection_id, pro_name);
+        this.router.navigate(["/"]);
+      }
+    });
+    
+
   }
 }

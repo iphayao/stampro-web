@@ -1,6 +1,7 @@
 <div class="pro_name">
     <md-input-container>
-        <input mdInput placeholder="Promotion Name">
+        <input mdInput #pro_name name="pro_name" placeholder="Promotion Name">
     </md-input-container>
 </div>
-<button md-fab class="bottom-right" (click)="add_collection()"><md-icon>check</md-icon></button>
+<!--{{pro_name.value}}-->
+<button md-fab class="bottom-right" (click)="add_collection(pro_name.value)"><md-icon>check</md-icon></button>

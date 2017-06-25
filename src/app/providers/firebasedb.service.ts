@@ -10,7 +10,7 @@ export class FirebasedbService {
   stamp: string = 'stamps';
   constructor(public db: AngularFireDatabase) { }
 
-  public QueryStampCollection(uid: string): FirebaseListObservable<any[]> {
+  public query_stamps_collection(uid: string): FirebaseListObservable<any[]> {
     return this.db.list(`/${this.root}/${uid}/${this.collection}`);
   }
 
