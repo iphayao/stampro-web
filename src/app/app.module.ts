@@ -18,7 +18,7 @@ import { AppComponent, AppDialog } from './app.component';
 import 'hammerjs';
 
 import { ListComponent } from './list/list.component';
-import { CollectionComponent } from './collection/collection.component'
+import { CollectionComponent, CollectionDialog } from './collection/collection.component'
 import { PageNotFoundComponent } from './not-found.component'
 
 const appRoutes: Routes = [
@@ -43,6 +43,7 @@ export const firebaseConfig = {
     AppDialog,
     ListComponent,
     CollectionComponent,
+    CollectionDialog,
     PageNotFoundComponent,
   ],
   imports: [
@@ -54,7 +55,10 @@ export const firebaseConfig = {
     AngularFireAuthModule,
     RouterModule.forRoot(appRoutes),
   ],
-  entryComponents: [AppDialog],
+  entryComponents: [
+    AppDialog, 
+    CollectionDialog
+  ],
   providers: [
     UidService, 
     FirebasedbService,
