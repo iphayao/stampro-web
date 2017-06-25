@@ -1,0 +1,5 @@
+<md-grid-list cols="4" rowHeight="1:1">
+  <md-grid-tile *ngFor="let item of items | async">
+    {{ (item.$value != 'none') ? '555' : '' }}
+  </md-grid-tile>
+</md-grid-list>

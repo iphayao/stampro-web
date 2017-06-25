@@ -15,12 +15,20 @@ export class AppComponent {
   title = 'Stampro';
   user: Observable<firebase.User>;
   items: FirebaseListObservable<any[]>;
+  user_data: FirebaseListObservable<any[]>;
   authmenu: string;
   //result: string;
   constructor(public db: AngularFireDatabase, public af: AngularFireAuth, public dlg: MdDialog) {
     this.user = af.authState;
     // load items from firebase RTDB
+    
     this.items = db.list('/items');
+    this.items.forEach(x => { console.log(x) });
+    //this.user_data.forEach(x => {console.log(x)})
+    var uid = "qy98TC0N1GXSQbWrValoU895N0u1";
+    this.user_data = db.list(`/users/${uid}/stamp_collection/`);
+    this.user_data.forEach(x => { console.log(x) });
+
     this.user.subscribe(auth => {
       if(auth) {
         console.log("user", auth.uid);
@@ -61,12 +69,14 @@ export class AppComponent {
         case "twitter":
             auth = new firebase.auth.TwitterAuthProvider();
             break;
-        default:
-            auth = new firebase.auth.GoogleAuthProvider();
-            break;
+        // default:
+        //     auth = new firebase.auth.GoogleAuthProvider();
+        //     break;
       }
-      this.af.auth.signInWithRedirect(auth);
-      this.user = this.af.authState;
+      if(auth) {
+        this.af.auth.signInWithRedirect(auth);
+        this.user = this.af.authState;
+      }
     });
   }
 
