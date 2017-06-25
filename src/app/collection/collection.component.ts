@@ -10,12 +10,13 @@ import { FirebasedbService } from '../providers/firebasedb.service';
 })
 export class CollectionComponent implements OnInit {
   items;
+  collection_id;
   constructor(route: ActivatedRoute, db: FirebasedbService, uuid: UidService) {
     console.log(route.snapshot.params['id']);
     console.log(uuid.generate());
     var uid = "qy98TC0N1GXSQbWrValoU895N0u1";
-    var cid = route.snapshot.params['id'];
-    this.items = db.QueryStamps(uid, cid);
+    this.collection_id = route.snapshot.params['id'];
+    this.items = db.QueryStamps(uid, this.collection_id);
   }
 
   ngOnInit() {

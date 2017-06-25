@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MdDialog, MdDialogRef } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AuthService } from './providers/auth.service';
 import * as firebase from 'firebase/app';
 
 @Component({
@@ -13,27 +13,15 @@ import * as firebase from 'firebase/app';
 
 export class AppComponent {
   title = 'Stampro';
-  user: Observable<firebase.User>;
-  items: FirebaseListObservable<any[]>;
-  user_data: FirebaseListObservable<any[]>;
+  //user: Observable<firebase.User>;
   authmenu: string;
   //result: string;
-  constructor(public db: AngularFireDatabase, public af: AngularFireAuth, public dlg: MdDialog) {
-    this.user = af.authState;
-    // load items from firebase RTDB
-    
-    this.items = db.list('/items');
-    this.items.forEach(x => { console.log(x) });
-    //this.user_data.forEach(x => {console.log(x)})
-    var uid = "qy98TC0N1GXSQbWrValoU895N0u1";
-    this.user_data = db.list(`/users/${uid}/stamp_collection/`);
-    this.user_data.forEach(x => { console.log(x) });
-
-    this.user.subscribe(auth => {
+  constructor(public auth: AuthService, public dlg: MdDialog) {
+    //this.user = af.authState;
+    auth.user.subscribe(auth => {
       if(auth) {
         console.log("user", auth.uid);
         this.authmenu = "Logout";
-
       }
       else {
         console.log("user not login");
@@ -43,9 +31,9 @@ export class AppComponent {
   }
 
   authAction() {
-    this.user.subscribe(auth => {
+    this.auth.user.subscribe(auth => {
       if(auth) {
-        this.signOut();
+        this.auth.SignOut();
       }
       else {
         this.signIn();
@@ -57,8 +45,8 @@ export class AppComponent {
     let dlgRef = this.dlg.open(AppDialog);
     dlgRef.afterClosed().subscribe(result => {
       console.log(`dialog result: ${result}`);
-
-      var auth = null;
+      this.auth.SignIn(result);
+      /*var auth = null;
       switch(result) {
         case "facebook":
             auth = new firebase.auth.FacebookAuthProvider();
@@ -69,22 +57,19 @@ export class AppComponent {
         case "twitter":
             auth = new firebase.auth.TwitterAuthProvider();
             break;
-        // default:
-        //     auth = new firebase.auth.GoogleAuthProvider();
-        //     break;
       }
       if(auth) {
         this.af.auth.signInWithRedirect(auth);
         this.user = this.af.authState;
-      }
+      }*/
     });
   }
 
-  signOut() {
+  /*signOut() {
     this.af.auth.signOut().then(
       x => location.reload()
     );
-  }
+  }*/
 }
 
 @Component({

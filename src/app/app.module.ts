@@ -9,6 +9,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { UidService } from './providers/uid.service';
 import { FirebasedbService } from './providers/firebasedb.service';
+import { AuthService } from './providers/auth.service';
 //import * as firebase from 'firebase/app';
 //import { firebase } from 'firebase/app';
 
@@ -54,7 +55,11 @@ export const firebaseConfig = {
     RouterModule.forRoot(appRoutes),
   ],
   entryComponents: [AppDialog],
-  providers: [UidService, FirebasedbService],
+  providers: [
+    UidService, 
+    FirebasedbService,
+    AuthService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

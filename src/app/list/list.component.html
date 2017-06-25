@@ -1,7 +1,7 @@
 <div class="card-viewer" *ngFor="let item of items | async">
-  <a routerLink="/collection/{{ item.$key }}" routerLinkActive="active">
+  <a routerLink="/collection/{{ item.$key }}" routerLinkActive="active" class="card-item">
     <md-card>
-      {{ item.$key }}
+      {{ item.pro_name }}
     </md-card>
   </a>
 </div>

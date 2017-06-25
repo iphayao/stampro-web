@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 // import * as firebase from 'firebase/app';
 //import { AppComponent } from '../app.component';
 import { FirebasedbService } from '../providers/firebasedb.service';
+import { AuthService } from '../providers/auth.service'
 
 @Component({
   selector: 'app-list',
@@ -14,9 +15,11 @@ import { FirebasedbService } from '../providers/firebasedb.service';
 export class ListComponent implements OnInit {
   //items: FirebaseListObservable<any[]>;
   items;
-  constructor(db: FirebasedbService) {
+  constructor(db: FirebasedbService, auth: AuthService) {
     //this.items = db.list("/items");
-    this.items = db.QueryStampCollection("qy98TC0N1GXSQbWrValoU895N0u1");
+    var uid = auth.uid;
+    console.log("this is : ", uid);
+    this.items = db.QueryStampCollection(auth.uid);
   }
 
   ngOnInit() {

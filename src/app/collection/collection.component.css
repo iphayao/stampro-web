@@ -1,0 +1,24 @@
+.filled {
+    background: black;
+}
+
+.not-filled {
+    background: lightgray;
+}
+
+.stamp {
+    height: 100%;
+    width: 100%;
+}
+
+md-grid-list {
+    margin: 10px;
+}
+
+.bottom-right {
+    top: auto;
+    left: auto;
+    right: 20px;
+    bottom: 20px;
+    position: absolute;
+}

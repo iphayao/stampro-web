@@ -1,5 +1,8 @@
 <md-grid-list cols="4" rowHeight="1:1">
   <md-grid-tile *ngFor="let item of items | async">
-    {{ (item.$value != 'none') ? '555' : '' }}
+    <div class="stamp {{ (item.$value != 'none') ? 'filled' : 'not-filled' }}">
+    <!--{{ (item.$value != 'none') ? '555' : '' }}-->
+    </div>
   </md-grid-tile>
 </md-grid-list>
+<a md-fab class="bottom-right" href="/collection/{{ collection_id }}/qr"><md-icon>add</md-icon></a>
