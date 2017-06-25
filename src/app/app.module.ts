@@ -18,12 +18,13 @@ import { AppComponent, AppDialog } from './app.component';
 import 'hammerjs';
 
 import { ListComponent } from './list/list.component';
-import { CollectionComponent, CollectionDialog } from './collection/collection.component'
-import { PageNotFoundComponent } from './not-found.component'
+import { CollectionComponent, AddStampCollection, CollectionDialog } from './collection/collection.component'
+import { PageNotFoundComponent } from './not-found.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/list', pathMatch: 'full'},
   { path: 'list', component: ListComponent },
+  { path: 'collection/add', component: AddStampCollection},
   { path: 'collection/:id', component: CollectionComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
@@ -45,6 +46,7 @@ export const firebaseConfig = {
     CollectionComponent,
     CollectionDialog,
     PageNotFoundComponent,
+    AddStampCollection,
   ],
   imports: [
     BrowserModule,

@@ -34,6 +34,20 @@ export class FirebasedbService {
     // );
   }
 
+  public add_collection(uid: string, cid: string, pro_name: string) {
+    var pro_str:string = "pro_name";
+    var new_collection:string = `/${this.root}/${uid}/${this.collection}/${cid}`;
+    var pro_name_key = `${new_collection}/${pro_str}`
+    var stamp_new = `${new_collection}/${this.stamp}`
+    this.db.list(pro_name_key);
+    this.db.object(pro_name_key).set(pro_name);//.update(pro_name});
+    var items = this.db.list(stamp_new);
+    for(var i = 0; i < 8; i++) {
+      items.push("null");
+    }
+    
+  }
+
   // public create_new_stamps(uid: string, cid: string) {
   //   var items = this.db.list(`/${this.root}/${uid}/${this.collection}/${cid}/${this.stamp}`);
   //   for(var i = 0; i < 8; i++) {

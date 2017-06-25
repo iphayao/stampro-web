@@ -1,3 +1,11 @@
 .card-item {
     text-decoration: none;
 }
+
+.bottom-right {
+    top: auto;
+    left: auto;
+    right: 20px;
+    bottom: 20px;
+    position: absolute;
+}

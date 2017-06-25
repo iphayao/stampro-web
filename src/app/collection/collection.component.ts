@@ -3,6 +3,7 @@ import { MdDialog, MdDialogRef } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { UidService } from '../providers/uid.service';
 import { FirebasedbService } from '../providers/firebasedb.service';
+import { AuthService } from '../providers/auth.service';
 
 @Component({
   selector: 'app-collection',
@@ -12,12 +13,11 @@ import { FirebasedbService } from '../providers/firebasedb.service';
 export class CollectionComponent implements OnInit {
   items;
   collection_id;
-  constructor(route: ActivatedRoute, public db: FirebasedbService, public uuid: UidService, public dlg: MdDialog) {
+  constructor(route: ActivatedRoute, public db: FirebasedbService, public fa: AuthService, public uuid: UidService, public dlg: MdDialog) {
     console.log(route.snapshot.params['id']);
     console.log(uuid.generate());
-    var uid = "qy98TC0N1GXSQbWrValoU895N0u1";
     this.collection_id = route.snapshot.params['id'];
-    this.items = db.query_stamps(uid, this.collection_id);
+    this.items = db.query_stamps(fa.uid, this.collection_id);
   }
 
   ngOnInit() {
@@ -39,8 +39,7 @@ export class CollectionComponent implements OnInit {
     var match_obj = x.filter(i => i.$value == "null");
     if(match_obj.length > 0) {
       var stamp_key = match_obj[0].$key;
-      var uid = "qy98TC0N1GXSQbWrValoU895N0u1";
-      this.db.update_stamps(uid, this.collection_id, stamp_key, stamp_id);
+      this.db.update_stamps(this.fa.uid, this.collection_id, stamp_key, stamp_id);
     }
     else {
       this.dlg.open(CollectionDialog);
@@ -51,9 +50,6 @@ export class CollectionComponent implements OnInit {
 
 @Component({
   template: `<h2 md-dialog-content>Stamp Collect Fulled</h2>`
-            //  <md-dialog-actions>
-            //     <button md-button [md-dialog-close]="true">Yes</button>
-            //  </md-dialog-actions>
 })
 
 export class CollectionDialog {
@@ -63,4 +59,22 @@ export class CollectionDialog {
   // public setMessage(message: string) {
   //   this.mesage = message;
   // }
+}
+
+@Component({
+  selector: 'app-list',
+  templateUrl: 'collection.component.add.html',
+  styleUrls: ['./collection.component.css']
+})
+
+export class AddStampCollection {
+  constructor(public db: FirebasedbService, public fa: AuthService, public uuid: UidService) {
+
+  }
+
+  public add_collection() {
+    console.log("add collection");
+    var collection_id = this.uuid.generate();
+    this.db.add_collection(this.fa.uid, collection_id, "test promotion");
+  }
 }
